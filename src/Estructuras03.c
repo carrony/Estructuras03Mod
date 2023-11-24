@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "listaPacientes.h"
 #include "paciente.h"
 
@@ -19,7 +20,8 @@ int main(void) {
 	paciente lista[MAXPACIENTES];
 	int opcion;
 	paciente pac;
-	//char nombre[MAXNOMBRE];
+	char nombre[MAXNOMBRE];
+	int numOld;
 
 	do {
 
@@ -30,6 +32,7 @@ int main(void) {
 		puts("3. Añadir paciente. ");
 		puts("4. Buscar paciente. ");
 		puts("5. Calcular IMC paciente. ");
+		puts("6- Borrar Paciente. ");
 		puts("0. Salir");
 
 		puts("Introduce opcion (0-5)");
@@ -52,6 +55,51 @@ int main(void) {
 			puts("Añadiendo paciente a la BBDD...");
 			num=insertarPaciente(lista, num, pac);
 			break;
+		case 4:
+			printf("\nNombre del Paciente a buscar: ");
+			fflush(stdout);
+			fflush(stdin);
+			fgets(nombre, MAXNOMBRE, stdin);
+			nombre[strlen(nombre)-1]='\0';
+
+			if (buscarPaciente(lista, num, nombre, &pac)) {
+				printf("\nPaciente encontrado:");
+				mostrarPaciente(pac);
+			} else {
+				printf("\nPaciente %s No encontrado.", nombre);
+			}
+			break;
+
+		case 5:
+			printf("\nNombre del Paciente a calcular: ");
+			fflush(stdout);
+			fflush(stdin);
+			fgets(nombre, MAXNOMBRE, stdin);
+			nombre[strlen(nombre)-1]='\0';
+			if (buscarPaciente(lista, num, nombre, &pac)) {
+				printf("\nPaciente encontrado:");
+				mostrarPaciente(pac);
+				printf("\nÍndice de masa corporal: %.2lf", calculaIMC(pac));
+
+			} else {
+				printf("\nPaciente %s No encontrado.", nombre);
+			}
+			break;
+
+		case 6:
+			printf("\nNombre del Paciente a eliminar: ");
+			fflush(stdout);
+			fflush(stdin);
+			fgets(nombre, MAXNOMBRE, stdin);
+			nombre[strlen(nombre)-1]='\0';
+			numOld=num;
+			num=borrarPaciente(lista,num,nombre);
+			if (num==numOld) {
+				printf("\nPaciente no encontrado.");
+			} else {
+				printf("\nSe ha eliminado el paciente %s. Quedan %d pcaientes ",nombre,num);
+			}
+
 		}
 
 

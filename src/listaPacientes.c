@@ -57,5 +57,27 @@ int insertarPaciente(paciente lista[MAXPACIENTES], int tam, paciente p) {
       }
 
 
+      /**
+	  * Función que elimina un paciente de la lista por nombre. Se realiza un borrado físico
+	  * desplazando todos los elementos en el vector
+	  */
+	 int borrarPaciente(paciente lista[MAXPACIENTES], int tam, char nombre[MAXNOMBRE]){
+		 int i;
+		 int posEncontrado=MAXPACIENTES;
+		 for ( i=0; i<tam; i++) {
+			 if(strcmp(nombre, lista[i].nombre) ==0  ) {
+				 posEncontrado=i;
+			 }
+		 }
+
+		 if(posEncontrado!=MAXPACIENTES) {
+			 for (i=posEncontrado;i<tam-1; i++) {
+				 lista[i]=lista[i+1];
+			 }
+			 tam--;
+		 }
+		 return tam;
+	 }
+
 
 

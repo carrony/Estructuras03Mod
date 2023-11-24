@@ -27,5 +27,11 @@
     */
    void mostrarLista(paciente lista[MAXPACIENTES], int tam);
 
+   /**
+    * Función que elimina un paciente de la lista por nombre. Se realiza un borrado físico
+    * desplazando todos los elementos en el vector
+    */
+   int borrarPaciente(paciente lista[MAXPACIENTES], int tam, char nombre[MAXNOMBRE]);
+
 
 #endif /* LISTAPACIENTES_H_ */
